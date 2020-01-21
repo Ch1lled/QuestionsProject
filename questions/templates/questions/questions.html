@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <title>Questions</title>
+
+    {% if user.is_authenticated %}
+
+        <div>
+            <p></p>  
+            <p><a href="{% url 'asking' %}" class="btn btn-primary">Ask a question</a></p></p>
+            <p></p>
+        </div>
+
+        {% for question in questions %}
+            <div class='row'>
+                <div class='col-xl-4'>
+                    <div class="card text-left">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{% url 'question' question.id %}">{{ question.title }}</a></h5>
+                            <p class="card-text">Rating: {{ question.rating }}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Спросил {{question.author}} {{question.creation_date}} 
+                        </div>
+                        <div class="card-footer text-muted">
+                            Tags: 
+                            {% for tag in question.tags.all %}
+                                <a href="{{ tag.get_absolute_url }}" class="btn btn-outline-secondary">{{ tag.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+        {% endfor %}
+
+    {% else %}
+        <p>Для просмотра этой страницы необходима авторизация</p>
+        <p><a href="/accounts/login/">Войти</a></p>
+    {% endif %}
+
+{% endblock content %}

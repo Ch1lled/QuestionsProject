@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <title>Asking</title>
+
+    <div class="card text-left">
+        <div class="card-header">
+            Ask a question
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+                <p class="card-text">Что-то пошло не так</p>
+            {% endif %}
+
+            {% if user.is_authenticated %}                   
+                <form method="POST" action="{% url 'asking' %}">{% csrf_token %}
+                    <p class="card-text">
+                        {{ form.as_p }}
+                    </p>
+                    <input type="submit" class="btn btn-primary" value="Спросить">
+                </form>
+            {% else %}
+                <p class="card-text">Для просмотра этой страницы необходима авторизация</p>
+                <p><a href="/accounts/login/" class="btn btn-primary">Войти</a></p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+    
+    <title>Question {{question.id}}</title>
+
+    {% if user.is_authenticated %}
+        <div class='row'>
+            <div class='col-xl-6'> 
+                <div class="card text-left">
+                    <div class="card-header">
+                        Question {{question.id}}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ question.title }}</h5>
+                        <p class="card-text">{{ question.text }}</p>
+                        <a href="{% url 'question_dislike' question.id %}" class="btn btn-primary">-</a> 
+                        {{ question.rating }} 
+                        <a href="{% url 'question_like' question.id %}" class="btn btn-primary">+</a>
+                        <a href="{% url 'replying' question.id %}" class="btn btn-primary">Ответить</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Спросил {{question.author}} {{question.creation_date}} 
+                    </div>
+                    <div class="card-footer text-muted">
+                        Tags: 
+                        {% for tag in question.tags.all %}
+                            <a href="{{ tag.get_absolute_url }}" class="btn btn-outline-secondary">{{ tag.title }}</a>
+                        {% endfor %} 
+                    </div>
+                </div>
+            </div>
+        </div>
+                <p></p>           
+                {% for answer in answers %}
+                    <div class='row'>
+                        <div class='col-xl-4'>
+                            <div class="card text-left">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                    {{ answer.text }}
+                                    </p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <a href="{% url 'answer_dislike' question.id answer.id %}" class="btn btn-primary">-</a> 
+                                    {{ answer.rating }} 
+                                    <a href="{% url 'answer_like' question.id answer.id %}" class="btn btn-primary">+</a>
+                                    Ответил {{answer.author}} {{answer.creation_date}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+    {% else %}
+        <p>Для просмотра этой страницы необходима авторизация</p>
+        <p><a href="/accounts/login/" class="btn btn-primary">Войти</a></p>
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <title>Tags list</title>
+
+    <div class="card text-left">
+        <div class="card-header">
+            Available tags:
+        </div>
+        <div class="card-footer">
+            {% for tag in tags %}
+                <a href="{{ tag.get_absolute_url }}" class="btn btn-outline-secondary"> {{ tag.title }} </a>
+            {% endfor %}
+        </div>
+
+{% endblock content %}

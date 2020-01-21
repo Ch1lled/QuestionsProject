@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <title>Tags</title>
+        
+    <div class="card text-left">
+        <div class="card-header">
+            Questions with tag "{{ tag.title|title }}":
+        </div>
+        {% for question in tag.posts.all %}
+            <div class="card-footer">
+                <h5><a href="{% url 'question' question.id %}">{{ question.title }}</a></h5>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

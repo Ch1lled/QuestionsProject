@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <title>Answering</title>
+
+    <div class="card text-left"> 
+        <div class="card-header">
+            Reply a question
+        </div> 
+        <div class="card-body">  
+            {% if form.errors %}
+                <p class="card-text">Что-то пошло не так</p>
+            {% endif %}
+
+            {% if user.is_authenticated %}      
+                <form method="POST" action="{% url 'replying' question_id %}">{% csrf_token %}
+                    <p class="card-text">
+                        {{ form.as_p }}
+                    </p>
+                    <input type="submit" class="btn btn-primary" value="Ответить">    
+                </form>
+            {% else %}
+                <p class="card-text">Для просмотра этой страницы необходима авторизация</p>
+                <p><a href="/accounts/login/" class="btn btn-primary">Войти</a></p>
+            {% endif %}
+        </div>
+    </div>
+    
+{% endblock content %}

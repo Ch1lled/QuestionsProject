@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <title>Main page</title>
+
+
+    <p></p>
+    <div class='row'>
+        <div class='col-xl-2'>
+            <div class="card text-center">
+                <div class="card-header">
+                    Welcome!
+                </div>
+                <div class="card text-center">
+                    <div class="card-body">
+                        {% if user.is_authenticated %}
+                            <p class="card-text">Вы зашли как <b>{{ user.username }}</b>.</p>
+                            <p>Если Вы не <b>{{ user.username }}</b>, нажмите <a href='accounts/logout/'>сюда</a></p>
+                        {% else %}
+                            <p class="card-text">Необходима авторизация</p>
+                            <a href='accounts/login/' class="btn btn-primary">Вход</a>
+                            <a href='register' class="btn btn-primary">Регистрация</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

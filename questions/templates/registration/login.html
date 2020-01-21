@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <title>Authorization</title>
+
+    <div class="card text-left">
+        <div class="card-header">
+            Авторизация
+        </div>
+            <div class="card-body">
+                {% if form.errors %}
+                <p class="card-text">Что-то пошло не так</p>
+                {% endif %}
+
+                {% if next %}
+                <p class="card-text">Кто-то забыл залогиниться</p>
+                {% endif %}
+
+                <form method="post" action="{% url 'login' %}">{% csrf_token %}
+                    <p class="card-text">Логин: {{ form.username }}</p>
+                    <p class="card-text">Пароль: {{ form.password }}</p>
+                    <input type="submit" class="btn btn-primary" value="Войти" />
+                </form>
+            </div>
+        </div>
+
+{% endblock content %}
